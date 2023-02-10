@@ -9,8 +9,8 @@ namespace TextBasedAdventure
     enum GameState
     {
         Start,
-        Choice1,
-        Choice2,
+        Play,
+        Exit,
         End
     }
 
@@ -27,27 +27,35 @@ namespace TextBasedAdventure
                     case GameState.Start:
                         Console.WriteLine("Welcome to the game!");
                         Console.WriteLine("Make a choice:");
-                        Console.WriteLine("1. Option 1");
-                        Console.WriteLine("2. Option 2");
+                        Console.WriteLine("1. Start Game");
+                        Console.WriteLine("2. Exit");
+                        Console.Write(">");
                         string choice = Console.ReadLine();
 
                         if (choice == "1")
                         {
-                            currentState = GameState.Choice1;
+                            currentState = GameState.Play;
                         }
                         else if (choice == "2")
                         {
-                            currentState = GameState.Choice2;
+                            currentState = GameState.Exit;
+                        } 
+                        else
+                        {
+                            Console.WriteLine("Please enter 1 to start or 2 to exit");
+                            Console.Write(">");
+                            choice = Console.ReadLine();
                         }
                         break;
 
-                    case GameState.Choice1:
-                        Console.WriteLine("You chose Option 1.");
-                        currentState = GameState.Choice1;
+                    case GameState.Play:
+                        Console.WriteLine("You chose to play the game.");
+                        Console.WriteLine("There's nothing here yet.");
+                        currentState = GameState.Exit;
                         break;
 
-                    case GameState.Choice2:
-                        Console.WriteLine("You chose Option 2.");
+                    case GameState.Exit:
+                        Console.WriteLine("You chose to exit the game.");
                         currentState = GameState.End;
                         break;
                 }

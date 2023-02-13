@@ -15,10 +15,16 @@ namespace TextBasedAdventure
         private static void MainMenu()
         {
             Console.WriteLine("Main Menu\nPlease select:\n1. Start Game\n2. Exit");
-            Console.Write(">");
+            string choice = "";
+            do
+            {
+                Console.WriteLine("Please enter 1 or 2");
+                Console.Write(">");
+                choice = Console.ReadLine();
+            }
+            while (!(choice == "1" || choice == "2"));
 
-            string answer = Console.ReadLine();
-            switch (answer)
+            switch (choice)
             {
                 case "1":
                     Console.WriteLine("You find yourself trapped in a haunted mansion and must solve puzzles to escape.");
@@ -44,32 +50,34 @@ namespace TextBasedAdventure
             Console.WriteLine("3. Look at the map");
             Console.WriteLine("4. Open the chest");
             string choice = "";
-            while (choice != "1" || choice != "2" || choice != "3" || choice != "4")
+            do
             {
-                Console.WriteLine("Please enter a valid choice");
+                Console.WriteLine("Please enter 1-4");
                 Console.Write(">");
                 choice = Console.ReadLine();
-                switch (choice)
-                {
-                    case "1":
-                        RoomOne();
-                        break;
-                    case "2":
-                        RoomTwo();
-                        break;
-                    case "3":
-                        LibraryMap();
-                        break;
-                    case "4":
-                        LibraryChest();
-                        break;
-                }
+            } 
+            while (!(choice == "1" || choice == "2" || choice == "3" || choice == "4"));
+            switch (choice)
+            {
+                case "1":
+                    RoomOne();
+                    break;
+                case "2":
+                    RoomTwo();
+                    break;
+                case "3":
+                    LibraryMap();
+                    break;
+                case "4":
+                    LibraryChest();
+                    break;
             }
+            
         }
 
         private static void RoomOne()
         {
-    
+            Console.WriteLine("bla");
 
         }
         private static void RoomTwo()

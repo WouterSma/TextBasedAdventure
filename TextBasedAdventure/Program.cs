@@ -6,64 +6,85 @@ using System.Threading.Tasks;
 
 namespace TextBasedAdventure
 {
-    enum GameState
-    {
-        Start,
-        Play,
-        Exit,
-        End
-    }
-
     class Program
     {
         static void Main()
         {
-            GameState currentState = GameState.Start;
+            MainMenu();       
+        }
+        private static void MainMenu()
+        {
+            Console.WriteLine("Main Menu\nPlease select:\n1. Start Game\n2. Exit\n>");
 
-            while (currentState != GameState.End)
+            string answer = Console.ReadLine();
+            switch (answer)
             {
-                switch (currentState)
-                {
-                    case GameState.Start:
-                        Console.WriteLine("Welcome to the game!");
-                        Console.WriteLine("Make a choice:");
-                        Console.WriteLine("1. Start Game");
-                        Console.WriteLine("2. Exit");
-                        Console.Write(">");
-                        string choice = Console.ReadLine();
-
-                        if (choice == "1")
-                        {
-                            currentState = GameState.Play;
-                        }
-                        else if (choice == "2")
-                        {
-                            currentState = GameState.Exit;
-                        } 
-                        else
-                        {
-                            Console.WriteLine("Please enter 1 to start or 2 to exit");
-                            Console.Write(">");
-                            choice = Console.ReadLine();
-                        }
-                        break;
-
-                    case GameState.Play:
-                        Console.WriteLine("You chose to play the game.");
-                        Console.WriteLine("There's nothing here yet.");
-                        currentState = GameState.Exit;
-                        break;
-
-                    case GameState.Exit:
-                        Console.WriteLine("You chose to exit the game.");
-                        currentState = GameState.End;
-                        break;
-                }
+                case "1":
+                    Console.WriteLine("You find yourself trapped in a haunted mansion and must solve puzzles to escape.");
+                    Console.WriteLine("Choose wisely, as each decision may lead to a different outcome.");
+                    Library();
+                    break;
+                case "2":
+                    Console.WriteLine("You exit the game...");
+                    break;
             }
-
-            Console.WriteLine("Thanks for playing!");
             Console.ReadKey();
         }
+        private static void ShowInventory()
+        {
+
+        } 
+        private static void Library()
+        {
+            Console.WriteLine("You are in the library. You see two doors, a map on the wall, and a chest in the corner.");
+            Console.WriteLine("What would you like to do?");
+            Console.WriteLine("1. Go through door 1");
+            Console.WriteLine("2. Go through door 2");
+            Console.WriteLine("3. Look at the map");
+            Console.WriteLine("4. Open the chest");
+            Console.Write(">");
+            
+            int choice = int.Parse(Console.ReadLine());
+
+            switch (choice)
+            {
+                case 1:
+                    RoomOne();
+                    break;
+                case 2:
+                    RoomTwo();
+                    break;
+                case 3:
+                    LibraryMap();
+                    break;
+                case 4:
+                    LibraryChest();
+                    break;
+                default:
+                    RoomOne();
+                    break;
+
+            }
+        }
+
+        private static void RoomOne()
+        {
+
+        }
+        private static void RoomTwo()
+        {
+
+        }
+        private static void LibraryMap()
+        {
+
+        }
+        private static void LibraryChest()
+        {
+
+        }
+
+
     }
 
 }

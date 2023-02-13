@@ -35,7 +35,7 @@ namespace TextBasedAdventure
                     Library();
                     break;
                 case "2":
-                    Console.WriteLine("You exit the game...");
+                    Console.WriteLine("You exit the game. Press any key to confirm...");
                     break;
             }
             Console.ReadKey();
@@ -113,7 +113,7 @@ namespace TextBasedAdventure
                     {
                         Console.Clear();
                         Console.WriteLine("The creature nods its head, and the grip on your hand loosens.The creature says, 'You have proven yourself worthy. The exit is now open.'");
-                        Winner("Hatch");
+                        Winner("Riddle");
                     }
                     else
                     {
@@ -145,13 +145,17 @@ namespace TextBasedAdventure
                 switch (choice)
                 {
                     case "1":
+                        Console.Clear();
                         Console.WriteLine("You grab a nearby weapon and engage in battle with the creature. After a grueling fight, you emerge victorious but exhausted.");
                         creatureAlive = false;
+                        SearchRoomTwo();
                         break;
                     case "2":
+                        Console.Clear();
                         SearchRoomTwo();
                         break;
                     case "3":
+                        Console.Clear();
                         Console.WriteLine("Scared by the creature, you slowly back up into the library.");
                         Library();
                         break;
@@ -204,6 +208,21 @@ namespace TextBasedAdventure
             switch (choice)
             {
                 case "1":
+                    Console.Clear();
+                    Console.WriteLine("You wipe the dust off the hatch and pull to open it");
+                    Console.WriteLine("You realize the hatch is too heavy to lift by yourself");
+                    if (!creatureAlive)
+                    {
+                        Console.WriteLine("Disappointed you were unable to open the hatch, you walk back to the library");
+                        Library();
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("You look over at the creature in the corner of the room, and decide to ask it to help you open the hatch. The creature steps out of the shadow and nods. Together you lift the heavy metal trapdoor and reveal a ladder going down into the darkness. You say goodbye to the creature and climb down the ladder");
+                        Winner("Hatch");
+                    }
+                    break;
 
                 case "2":
                     Console.WriteLine("You look at the hatch and decide to ignore it and go back to the library");
@@ -234,14 +253,17 @@ namespace TextBasedAdventure
             switch (wayOut)
             {
                 case "Hatch":
-                    Console.WriteLine("The room begins to shake and a hidden hatch opens up in the ground. You quickly climb down the ladder and find yourself in a long, dark tunnel. You follow the tunnel and eventually see light at the end. You increase your pace and finally reach the end, where you find yourself outside of the mansion, free at last.");
-                    Console.WriteLine("You succesfully escaped the haunted mansion!");
-                    Console.WriteLine("Press any key to continue");
-                    Console.Write(">");
-                    Console.ReadKey();
+                    Console.WriteLine(" You quickly climb down the ladder and find yourself in a long, dark tunnel. You follow the tunnel and eventually see light at the end. You increase your pace and finally reach the end, where you find yourself outside of the mansion, free at last.");
                     break;
 
+                case "Riddle":
+                    Console.WriteLine("The room begins to shake and a hidden hatch opens up in the ground. You quickly climb down the ladder and find yourself in a long, dark tunnel. You follow the tunnel and eventually see light at the end. You increase your pace and finally reach the end, where you find yourself outside of the mansion, free at last.");
+                    break;
             }
+            Console.WriteLine("You succesfully escaped the haunted mansion!");
+            Console.WriteLine("Press any key to continue");
+            Console.Write(">");
+            Console.ReadKey();
             Main();
         }
 

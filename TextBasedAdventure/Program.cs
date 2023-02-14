@@ -9,9 +9,14 @@ namespace TextBasedAdventure
     class Program
     {
         private static bool creatureAlive = true;
+        private static bool hasKey = false;
+        private static bool destroyedChest = false;
         static void Main()
         {
-            MainMenu();       
+            creatureAlive = true;
+            hasKey = false;
+            destroyedChest = false;
+            MainMenu();
         }
         private static void MainMenu()
         {
@@ -35,27 +40,40 @@ namespace TextBasedAdventure
                     Library();
                     break;
                 case "2":
-                    Console.WriteLine("You exit the game. Press any key to confirm...");
+                    Environment.Exit(0);
                     break;
             }
             Console.ReadKey();
         }
-        private static void ShowInventory()
-        {
-
-        } 
         private static void Library()
         {
-            Console.WriteLine("You are in the library. You see two doors, a map on the wall, and a chest in the corner.");
-            Console.WriteLine("What would you like to do?");
+            if (!destroyedChest)
+            {
+                Console.WriteLine("You are in the library. You see two doors, a map on the wall, and a chest in the corner.");
+            }
+            else
+            {
+                Console.WriteLine("You are in the library. You see two doors, and a map on the wall.");
+            }
+                Console.WriteLine("What would you like to do?");
             Console.WriteLine("1. Go through door 1");
             Console.WriteLine("2. Go through door 2");
             Console.WriteLine("3. Look at the map");
-            Console.WriteLine("4. Open the chest");
+            if (!destroyedChest)
+            {
+                Console.WriteLine("4. Open the chest");
+            }
             string choice; ;
             do
             {
-                Console.WriteLine("Please enter 1-4");
+                if (!destroyedChest)
+                {
+                    Console.WriteLine("Please enter 1-4");
+                }
+                else
+                {
+                    Console.WriteLine("Please enter 1-3");
+                }
                 Console.Write(">");
                 choice = Console.ReadLine();
             } 
@@ -75,8 +93,29 @@ namespace TextBasedAdventure
                     LibraryMap();
                     break;
                 case "4":
-                    Console.Clear();
-                    LibraryChest();
+                    if (!destroyedChest)
+                    {
+                        Console.Clear();
+                        LibraryChest();
+                        break;
+
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("The chest has already been openend.");
+                        Library();
+                        break;
+                    }
+                default:
+                    if (!destroyedChest)
+                    {
+                        Console.WriteLine("Please enter 1-4");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please enter 1-3");
+                    }
                     break;
             }
             
@@ -109,7 +148,7 @@ namespace TextBasedAdventure
                     Console.WriteLine("You think for a moment and then respond with your answer");
                     Console.Write(">");
                     string riddleAnswer = Console.ReadLine().ToLower();
-                    if (riddleAnswer == "breath" || riddleAnswer == "air")
+                    if (riddleAnswer == "breath" || riddleAnswer == "air" || riddleAnswer == "a breath" || riddleAnswer == "adem" || riddleAnswer == "lucht")
                     {
                         Console.Clear();
                         Console.WriteLine("The creature nods its head, and the grip on your hand loosens.The creature says, 'You have proven yourself worthy. The exit is now open.'");
@@ -123,8 +162,6 @@ namespace TextBasedAdventure
                     }
                     break;
             }
-
-
         }
         private static void RoomTwo()
         {
@@ -234,11 +271,118 @@ namespace TextBasedAdventure
 
         private static void LibraryMap()
         {
+            Console.WriteLine("You approach the map, in the corner of the map, you see a note written in a shaky handwriting:");
+            Console.WriteLine("'Pay no attention to the monster'");
+            Console.WriteLine("You notice a secret passage marked on the map. It leads directly to the exit.");
+            Console.WriteLine("However, it looks dangerous and uncertain.");
+            Console.WriteLine("Do you take the secret passage or leave the map?");
+            Console.WriteLine("1. Take the secret passage");
+            Console.WriteLine("2. Leave the map");
+            string choice;
+            do
+            {
+                Console.WriteLine("Please enter 1 or 2");
+                Console.Write(">");
+                choice = Console.ReadLine();
+            }
+            while (!(choice == "1" || choice == "2"));
 
+            switch (choice)
+            {
+                case "1":
+                    Console.Clear();
+                    SecretPassage();
+                    break;
+                case "2":
+                    Console.Clear();
+                    Library();
+                    break;
+            }
+
+        }
+        private static void SecretPassage()
+        {
+            Console.WriteLine("You have entered the secret passage. Something is stalking you from the shadows.");
+            Console.WriteLine("You can either keep running towards the exit door or take a look at what's following you.");
+            Console.WriteLine("1. Keep running towards the exit door");
+            Console.WriteLine("2. Take a look");
+
+            string choice;
+            do
+            {
+                Console.WriteLine("Please enter 1 or 2");
+                Console.Write(">");
+                choice = Console.ReadLine();
+            }
+            while (!(choice == "1" || choice == "2"));
+            switch (choice)
+            {
+                case "1":
+                    Console.Clear();
+                    Console.WriteLine("You keep running as fast as you can. Your heart is pounding in your chest.");
+                    Console.WriteLine("Finally, you reach the exit door. You turn the handle, but it's locked.");
+                    if (hasKey)
+                    {
+                        Console.WriteLine("You quickly retrieve the key from your pocket and unlock the door.");
+                        Console.WriteLine("You have escaped the secret passage!");
+                        Console.WriteLine("You see a hole in the ground with a ladder going down into it.");
+                        Winner("Hatch");
+                        break;
+                    }
+                    Console.WriteLine("The monster catches up to you and you realize you don't have the key to escape.");
+                    Loser();
+                    break;
+                case "2":
+                    Console.Clear();
+                    Console.WriteLine("You take a look and the monster jumps out from the shadows.");
+                    Console.WriteLine("You try to run, but it's too late. The monster catches you.");
+                    Loser();
+                    break;
+                default:
+                    Console.Clear();
+                    Console.WriteLine("Invalid choice. Please enter 1 or 2.");
+                    SecretPassage();
+                    break;
+            }
         }
         private static void LibraryChest()
         {
+            Console.WriteLine("You approach the chest and find it is locked with a complex mechanism.");
+            Console.WriteLine("What would you like to do?");
+            Console.WriteLine("1. Try to pick the lock");
+            Console.WriteLine("2. Smash the chest open");
+            Console.WriteLine("3. Leave the chest and go back to the library");
+            Console.Write(">");
+            string choice = Console.ReadLine();
 
+            switch (choice)
+            {
+                case "1":
+                    Console.Clear();
+                    Console.WriteLine("You carefully inspect the lock and manage to pick it with some effort.");
+                    Console.WriteLine("You find a key inside, which might be useful later.");
+                    hasKey = true;
+                    destroyedChest = true;
+                    Library();
+                    break;
+                case "2":
+                    Console.Clear();
+                    Console.WriteLine("You smash the chest open, but in the process you accidentally destroy the key inside.");
+                    Console.WriteLine("You'll have to find another way out of the mansion.");
+                    hasKey = false;
+                    destroyedChest = true;
+                    Library();
+                    break;
+                case "3":
+                    Console.Clear();
+                    Console.WriteLine("You decide to leave the chest and go back to the library.");
+                    Library();
+                    break;
+                default:
+                    Console.WriteLine("Invalid option. Please enter 1-3.");
+                    LibraryChest();
+                    break;
+            }
         }
         private static void Loser()
         {
